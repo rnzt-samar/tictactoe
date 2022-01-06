@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TicTacToe, play tictactoe">
+    <title>TicTacToe</title>
+    <link rel="stylesheet" href="..//css/style.css">
+    <link rel="shortcut icon" href="..//img/download.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <div class="turndecider"></div>
+            <table class="gameboard">
+                <tr class="row1">
+                    <td class="box box1" onclick="marksign('1')"></td>
+                    <td class="box box2" onclick="marksign('2')"></td>
+                    <td class="box box3" onclick="marksign('3')"></td>
+                </tr>
+                <tr class="row2">
+                    <td class="box box4" onclick="marksign('4')"></td>
+                    <td class="box box5" onclick="marksign('5')"></td>
+                    <td class="box box6" onclick="marksign('6')"></td>
+                </tr>
+                <tr class="row3">
+                    <td class="box box7" onclick="marksign('7')"></td>
+                    <td class="box box8" onclick="marksign('8')"></td>
+                    <td class="box box9" onclick="marksign('9')"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="verdictWrapper">
+            <div class="verdict"></div>
+            <button id="resetbtn">Play Again</button>
+        </div>
+        
+    </div>
+
+</body>
+<script src="..//js/script.js"></script>
+
+</html>

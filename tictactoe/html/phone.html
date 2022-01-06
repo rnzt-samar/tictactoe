@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TicTacToe</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .gameboard .box {
+            border: 1px solid black;
+            width: 100px;
+            height: 100px;
+            cursor: pointer;
+            text-align: center;
+            justify-content: center;
+            font-size: 75px;
+            background-color: rgba(202, 199, 199, 0.589);
+            border-radius: 1px;
+            color: rgb(255, 194, 194);
+        }
+
+        .container {
+            margin: 0 auto;
+            width: 75%;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .wrapper {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+
+        }
+
+        .box:hover {
+            transition: background, color 0.2s;
+            background-color: rgba(73, 72, 72, 0.76);
+            box-shadow: 2px 2px black;
+        }
+
+        .verdictWrapper {
+            align-items: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .verdict {
+            text-align: center;
+            font-size: 50px;
+        }
+
+        .verdictWrapper button {
+            width: 150px;
+            height: 50px;
+            align-items: center;
+            align-self: center;
+            margin: 0 auto;
+            margin-top: 25px;
+            border: 2px solid black;
+            border-radius: 15px;
+            background-color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background, color 0.2s;
+
+        }
+
+        .verdictWrapper button:hover {
+            background-color: black;
+            color: white;
+
+
+        }
+
+        .turndecider {
+            font-size: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <div class="turndecider"></div>
+            <table class="gameboard">
+                <tr class="row1">
+                    <td class="box box1" onclick="marksign('1')"></td>
+                    <td class="box box2" onclick="marksign('2')"></td>
+                    <td class="box box3" onclick="marksign('3')"></td>
+                </tr>
+                <tr class="row2">
+                    <td class="box box4" onclick="marksign('4')"></td>
+                    <td class="box box5" onclick="marksign('5')"></td>
+                    <td class="box box6" onclick="marksign('6')"></td>
+                </tr>
+                <tr class="row3">
+                    <td class="box box7" onclick="marksign('7')"></td>
+                    <td class="box box8" onclick="marksign('8')"></td>
+                    <td class="box box9" onclick="marksign('9')"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="verdictWrapper">
+            <div class="verdict"></div>
+            <button id="resetbtn">Play Again</button>
+        </div>
+    </div>
+</body>
+<script src="..//js/script.js"></script>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TicTacToe</title>
+    <link rel="stylesheet" href="..//css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <div class="turndecider"></div>
+            <table class="gameboard">
+                <tr class="row1">
+                    <td class="box box1" onclick="marksign('1')"></td>
+                    <td class="box box2" onclick="marksign('2')"></td>
+                    <td class="box box3" onclick="marksign('3')"></td>
+                </tr>
+                <tr class="row2">
+                    <td class="box box4" onclick="marksign('4')"></td>
+                    <td class="box box5" onclick="marksign('5')"></td>
+                    <td class="box box6" onclick="marksign('6')"></td>
+                </tr>
+                <tr class="row3">
+                    <td class="box box7" onclick="marksign('7')"></td>
+                    <td class="box box8" onclick="marksign('8')"></td>
+                    <td class="box box9" onclick="marksign('9')"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="verdictWrapper">
+            <div class="verdict"></div>
+            <button id="resetbtn">Play Again</button>
+        </div>
+    </div>
+</body>
+<script>
+    boxes = document.querySelectorAll(".box");
+    let turnbox = document.querySelector(".turndecider");
+
+    let clickcount = 0;
+    let resetBtn = document.getElementById("resetbtn");
+    let verdictbox = document.querySelector(".verdict");
+    let verdictWrapper = document.querySelector(".verdictWrapper")
+    let wrapper = document.querySelector(".wrapper");
+    resetBtn.style.display = "none";
+    // resetBtn.style.display="block";
+    // wrapper.style.display="none"
+
+    player("O");
+
+    function marksign(boxnumber) {
+
+        box = boxes[boxnumber - 1];
+        if (box.innerHTML.length == 0) {
+            if ((clickcount % 2) == 0) {
+                sign = "O"
+                box.innerHTML = sign;
+                box.style = "background-color:rgb(194, 255, 194)";
+                box.style.color = "green";
+
+                checkforwin(sign);
+                player("X");
+
+            }
+            else {
+                sign = "X"
+                box.innerHTML = sign;
+                checkforwin(sign);
+                box.style = "background-color:rgb(255, 194, 194)";
+                box.style.color = "red";
+                player("O");
+
+
+            }
+            clickcount = clickcount + 1;
+        }
+
+    }
+    function checkforwin(sign) {
+        console.log("checked");
+        boxContent = [];
+        for (i = 0; i < 9; i++) {
+            boxContent.push(boxes[i].innerHTML);
+        }
+        console.log(boxContent)
+        //possible values for a win
+
+        let possibleWins = [
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 1, 2],
+            [0, 4, 8],
+            [2, 4, 6],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8]
+        ];
+        for (i = 0; i <= 7; i++) {
+            if (
+                (((boxContent[possibleWins[i][0]].length != 0) && (boxContent[possibleWins[i][1]].length != 0)) && (boxContent[possibleWins[i][0]] == boxContent[possibleWins[i][1]] && boxContent[possibleWins[i][1]] == boxContent[possibleWins[i][2]]))
+            ) {
+                // console.log("You won")
+                verdictbox.innerHTML = "Player " + sign + " wins the game";
+                wrapper.style.display = "none";
+                resetBtn.style.display = "block";
+                if (sign == "X") {
+                    verdictbox.style.color = "red";
+                }
+                else {
+                    verdictbox.style.color = "green";
+
+                }
+            }
+        }
+
+
+    };
+
+
+    function player(sign) {
+        turnbox.innerHTML = "Player " + sign;
+        if (sign == "O") {
+            turnbox.style.color = "green";
+        } else {
+            turnbox.style.color = "red";
+
+        }
+
+    }
+    resetBtn.addEventListener("click", () => {
+        console.log("Reset Button has been clicked");
+        boxes.forEach(element => {
+            element.innerHTML = "";
+            element.style = "background-color:rgba(202, 199, 199, 0.589)"
+        })
+        ;
+        verdictbox.innerHTML = "";
+        player("O");
+        wrapper.style.display = "block";
+        resetBtn.style.display = "none";
+        clickcount = 0;
+
+    })
+/*
+        //this is the initially adopted checking mechanism
+            if (
+                (((boxContent[4].length != 0) && (boxContent[3].length != 0)) && (boxContent[3] == boxContent[4] && boxContent[4] == boxContent[5])) ||
+                (((boxContent[7].length != 0) && (boxContent[6].length != 0)) && (boxContent[6] == boxContent[7] && boxContent[7] == boxContent[8])) ||
+                (((boxContent[1].length != 0) && (boxContent[0].length != 0)) && (boxContent[0] == boxContent[1] && boxContent[1] == boxContent[2])) ||
+                (((boxContent[0].length != 0) && (boxContent[4].length != 0)) && (boxContent[0] == boxContent[4] && boxContent[4] == boxContent[8])) ||
+                (((boxContent[2].length != 0) && (boxContent[4].length != 0)) && (boxContent[2] == boxContent[4] && boxContent[4] == boxContent[6])) ||
+                (((boxContent[0].length != 0) && (boxContent[3].length != 0)) && (boxContent[0] == boxContent[3] && boxContent[3] == boxContent[6])) ||
+                (((boxContent[1].length != 0) && (boxContent[4].length != 0)) && (boxContent[1] == boxContent[4] && boxContent[4] == boxContent[7])) ||
+                (((boxContent[2].length != 0) && (boxContent[5].length != 0)) && (boxContent[2] == boxContent[5] && boxContent[5] == boxContent[8]))
+            ) {
+                // console.log("You won")
+                verdictbox.innerHTML = "Player " + sign + " wins the game";
+                wrapper.style.display = "none";
+                resetBtn.style.display = "block";
+                if (sign == "X") {
+                    verdictbox.style.color = "red";
+                }
+                else {
+                    verdictbox.style.color = "green";
+        
+                }
+            }
+            */
+</script>
+
+</html>
